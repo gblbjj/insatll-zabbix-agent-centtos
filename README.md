@@ -1,0 +1,1 @@
+# insatll-zabbix-agent-centtos
