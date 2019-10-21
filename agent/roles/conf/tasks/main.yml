@@ -1,0 +1,29 @@
+- name: install Python e agent zabbix
+  yum:
+    name: epel-release
+    update_cache: yes
+    state: present
+
+- name: install pip 
+  yum:
+    name: python-pip
+    state: present
+
+- name: update pip
+  shell: "pip install --upgrade pip"    
+
+- name: config hostname
+  hostname:
+    name: lab01
+
+- name: Reboot a Linux machine 
+  reboot:
+    post_reboot_delay: 180   
+
+- name: pegar hostname 
+  shell: "hostname --fqdn"
+  register: hname   
+
+- name: pegar ip 
+  shell: "hostname -I"
+  register: hip
