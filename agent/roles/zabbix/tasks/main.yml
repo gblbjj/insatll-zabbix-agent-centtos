@@ -2,6 +2,7 @@
 # tasks file for repos
 - name: teste pacote zabbix 
   shell: "rpm -qa | grep zabbix-agent"
+  ignore_errors: yes
   register: repo
 
 
@@ -58,3 +59,21 @@
     name: zabbix-agent
     state: restarted
     enabled: yes        
+
+- name:  add api
+  copy:
+    src: create_host_zabbix-api.sh
+    dest: /tmp/
+    owner: gabriel
+    group: gabriel
+    mode: '0755'   
+
+- name: add host zabbix-server 
+  shell: "/tmp/create_host_zabbix-api.sh"
+  register: zabbix
+
+
+- name: purge 
+  file:
+    path: "/tmp/create_host_zabbix-api.sh"
+    state: absent
